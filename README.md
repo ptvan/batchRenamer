@@ -1,2 +1,2 @@
 # batchRenamer
-a batch file renamer written in Python3 and PyQt5
+a batch file renamer written in Python3 and different GUI frameworks
