@@ -13,15 +13,16 @@ class batchRenamer:
         frame.pack()
         
 
-        self.button = tk.Button(frame, text="quit", fg="red", command=frame.quit)
-        self.button.pack(side=tk.LEFT)
+        self.quitBtn = tk.Button(frame, text="quit", fg="red", command=frame.quit)
+        self.quitBtn.pack(side=tk.LEFT)
 
         self.browseBtn = tk.Button(frame, text="select files", command=self.browseFiles)
         self.browseBtn.pack(side=tk.LEFT)
 
 
     def browseFiles(self):
-        return tk.filedialog.askopenfile(mode="r")
+        files = tk.filedialog.askopenfilenames(title="Select files to rename")
+        print(files)
 
 root = tk.Tk()
 root.title('Batch Renamer')
