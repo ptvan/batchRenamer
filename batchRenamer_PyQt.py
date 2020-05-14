@@ -62,7 +62,7 @@ class filerenamer(QWidget):
         self.contents = QTableWidget()
         layout.addWidget(self.contents,5,0,1,3)
         self.setLayout(layout)
-        self.setWindowTitle("File Renamer")
+        self.setWindowTitle("Batch Renamer")
         self.contents.setFixedWidth(600)
         self.contents.setColumnCount(2)
         tableHeader = ["original filename","new filename"]
