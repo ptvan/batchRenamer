@@ -13,8 +13,8 @@ class batchRenamer(Frame):
         self.browseBtn = Button(self, text="select files", command=self.browseFiles)
         self.browseBtn.grid(row=0, column=0)
 
-        self.oldNames = Text(self, width=50, height=5)
-        self.oldNames.grid(row=1, column=0, columnspan=3)
+        self.oldEdit = Text(self, width=50, height=5)
+        self.oldEdit.grid(row=1, column=0, columnspan=3)
         
         self.prefixOn = IntVar()
         self.prefixChkbox = Checkbutton(self, text="prefix", variable=self.prefixOn) 
@@ -44,17 +44,21 @@ class batchRenamer(Frame):
         self.replaceNewEdit = Entry(self)
         self.replaceNewEdit.grid(row=5, column=2)
 
-        self.newNames = Text(self, width=50, height=5)
-        self.newNames.grid(row=6, column=0, columnspan=3)
+        self.newEdit = Text(self, width=50, height=5)
+        self.newEdit.grid(row=6, column=0, columnspan=3)
         
         self.renameBtn = Button(self, text="rename", command=self.confirm)
         self.renameBtn.grid(row=7, column=0)
+
+        self.originalNames = []
+        self.newNames = []
 
         
     def browseFiles(self):
         files = filedialog.askopenfilenames(title="Select files to rename")
         print(files)
-        self.oldNames.insert(INSERT, files)
+        self.oldEdit.insert(INSERT, files)
+        self.processNames()
 
     def processNames(self):
         if self.prefixOn == True:
