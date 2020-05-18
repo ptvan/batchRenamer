@@ -59,7 +59,7 @@ class batchRenamer(Frame):
         files = filedialog.askopenfilenames(title="Select files to rename")
         self.oldEdit.delete(1.0, END)
         self.newEdit.delete(1.0, END)
-        print(files)
+        # print(files)
         self.originalNames = files
         self.newNames = files
         for i in range(len(files)):
@@ -70,10 +70,12 @@ class batchRenamer(Frame):
     def processNames(self):
         self.newNames = self.originalNames
         self.dirName = os.path.dirname(self.originalNames[0])
-
+        self.newEdit.delete(1.0, END)
+        
         if self.prefixOn.get() == True:
             print("prefix")
             self.newNames = [self.prefixEdit.get() + os.path.basename(x) for x in self.newNames]
+            print(self.newNames)
 
         if self.suffixOn.get() == True:
             print("suffix")
@@ -89,7 +91,8 @@ class batchRenamer(Frame):
 
         for i in range(len(self.newNames)):
             short = os.path.basename(self.newNames[i])
-            self.newEdit.insert(INSERT, os.path.basename(short[i]))
+            # print(short)
+            self.newEdit.insert(INSERT, short)
             self.newEdit.insert(INSERT, "\n")
 
     def confirm(self):
@@ -110,4 +113,4 @@ root.geometry("620x500")
 app = batchRenamer(root)
 
 root.mainloop()
-root.destroy()
+root.quit()
