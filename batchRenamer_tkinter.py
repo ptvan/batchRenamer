@@ -88,6 +88,10 @@ class batchRenamer(Frame):
     
     def renameFiles(self):
         print("renaming files!")
+        for i in range(len(self.newNames)):
+            cmd = 'mv ' + self.originalNames[i] + " " + self.dirName + "/" + self.newNames[i]
+            # print(cmd)
+            os.system(cmd)
 
 
 root = Tk()
