@@ -11,6 +11,9 @@ class batchRenamer(Frame):
         self.master.rowconfigure(1, weight=3)
         self.grid()
 
+        self.originalNames = []
+        self.newNames = []
+
         self.browseBtn = Button(self, text="select files", command=self.browseFiles)
         self.browseBtn.grid(row=0, column=0)
 
@@ -20,34 +23,34 @@ class batchRenamer(Frame):
         self.prefixOn = IntVar()
         self.prefixChkbox = Checkbutton(self, text="prefix", variable=self.prefixOn, command=self.processNames) 
         self.prefixChkbox.grid(row=2, column=0)
-        self.prefixEdit = Entry(self, width=10)
+        self.prefixEdit = Entry(self, width=10, validate='focus', validatecommand=self.processNames)
         self.prefixEdit.insert(0, "pre")
         self.prefixEdit.grid(row=2, column=1)
 
         self.suffixOn = IntVar()
         self.suffixChkbox = Checkbutton(self, text="suffix", variable=self.suffixOn, command=self.processNames)
         self.suffixChkbox.grid(row=3, column=0) 
-        self.suffixEdit = Entry(self, width=10)
+        self.suffixEdit = Entry(self, width=10, validate='focus', validatecommand=self.processNames)
         self.suffixEdit.insert(0, "suf")
         self.suffixEdit.grid(row=3, column=1)
 
         self.numberingOn = IntVar()
         self.numberingChkbox = Checkbutton(self, text="numbering", variable=self.numberingOn, command=self.processNames)
         self.numberingChkbox.grid(row=4, column=0) 
-        self.numberingStartEdit = Entry(self, width=5)
+        self.numberingStartEdit = Entry(self, width=5, validate='focus', validatecommand=self.processNames)
         self.numberingStartEdit.insert(0, "0")
         self.numberingStartEdit.grid(row=4, column=1)
-        self.numberingStepEdit = Entry(self, width=5)
+        self.numberingStepEdit = Entry(self, width=5, validate='focus', validatecommand=self.processNames)
         self.numberingStepEdit.insert(0, "1")
         self.numberingStepEdit.grid(row=4, column=2)
 
         self.replaceOn = IntVar()
         self.replaceChkbox = Checkbutton(self, text="replace", variable=self.replaceOn, command=self.processNames)
         self.replaceChkbox.grid(row=5, column=0) 
-        self.replaceOldEdit = Entry(self)
+        self.replaceOldEdit = Entry(self, width=15, validate='focus', validatecommand=self.processNames)
         self.replaceOldEdit.insert(0, "oldtext")
         self.replaceOldEdit.grid(row=5, column=1)
-        self.replaceNewEdit = Entry(self)
+        self.replaceNewEdit = Entry(self, width=15, validate='focus', validatecommand=self.processNames)
         self.replaceNewEdit.insert(0, "newtext")
         self.replaceNewEdit.grid(row=5, column=2)
 
@@ -56,9 +59,6 @@ class batchRenamer(Frame):
         
         self.renameBtn = Button(self, text="rename", command=self.confirm)
         self.renameBtn.grid(row=7, column=0)
-
-        self.originalNames = []
-        self.newNames = []
 
         
     def browseFiles(self):
@@ -114,7 +114,7 @@ class batchRenamer(Frame):
 
 root = Tk()
 root.title('Batch Renamer')
-root.geometry("620x500")
+root.geometry("620x530")
 
 app = batchRenamer(root)
 
