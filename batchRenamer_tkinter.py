@@ -1,4 +1,4 @@
-from tkinter import INSERT, Tk, Frame, Button, Entry, Checkbutton, Text, IntVar, filedialog, messagebox
+from tkinter import INSERT, END, Tk, Frame, Button, Entry, Checkbutton, Text, IntVar, filedialog, messagebox
 import sys
 import os
 
@@ -57,6 +57,8 @@ class batchRenamer(Frame):
         
     def browseFiles(self):
         files = filedialog.askopenfilenames(title="Select files to rename")
+        self.oldEdit.delete(1.0, END)
+        self.newEdit.delete(1.0, END)
         print(files)
         self.originalNames = files
         self.newNames = files
@@ -67,7 +69,7 @@ class batchRenamer(Frame):
         self.newNames = self.originalNames
         self.dirName = os.path.dirname(self.originalNames[0])
 
-        if self.prefixOn == True:
+        if self.prefixOn == 1:
             print("prefix")
             self.newNames = [self.prefixEdit.get() + os.path.basename(x) for x in self.newNames]
 
