@@ -69,19 +69,19 @@ class batchRenamer(Frame):
 
         if self.prefixOn == True:
             print("prefix")
-            self.newNames = [self.prefixEdit.text() + os.path.basename(x) for x in self.newNames]
+            self.newNames = [self.prefixEdit.get() + os.path.basename(x) for x in self.newNames]
 
         if self.suffixOn == True:
             print("suffix")
-            self.newNames = [os.path.splitext(x)[0] + self.suffixEdit.text() + os.path.splitext(x)[1] for x in self.newNames ]
+            self.newNames = [os.path.splitext(x)[0] + self.suffixEdit.get() + os.path.splitext(x)[1] for x in self.newNames ]
         
         if self.numberingOn == True:
             print("numbering")
-            self.newNames = [os.path.splitext(os.path.basename(self.newNames[i]))[0] + str(i + int(self.numberingStartEdit.text())) * int(self.numberingStepEdit.text()) + os.path.splitext(os.path.basename(self.newNames[i]))[1] for (i, j) in enumerate(self.originalNames)]
+            self.newNames = [os.path.splitext(os.path.basename(self.newNames[i]))[0] + str(i + int(self.numberingStartEdit.get())) * int(self.numberingStepEdit.get()) + os.path.splitext(os.path.basename(self.newNames[i]))[1] for (i, j) in enumerate(self.originalNames)]
         
         if self.replaceOn == True:
             print("replace")
-            self.newNames = [os.path.basename(x).replace(self.replaceOldEdit.text(), self.replaceNewEdit.text()) for x in self.originalNames]
+            self.newNames = [os.path.basename(x).replace(self.replaceOldEdit.get(), self.replaceNewEdit.get()) for x in self.originalNames]
 
     def confirm(self):
         messagebox.askyesno('Confirm file rename', 'Rename files ?')
