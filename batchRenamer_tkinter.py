@@ -18,7 +18,7 @@ class batchRenamer(Frame):
         self.oldEdit.grid(row=1, column=0, columnspan=3)
         
         self.prefixOn = IntVar()
-        self.prefixChkbox = Checkbutton(self, text="prefix", variable=self.prefixOn) 
+        self.prefixChkbox = Checkbutton(self, text="prefix", variable=self.prefixOn, command=self.processNames) 
         self.prefixChkbox.grid(row=2, column=0)
         self.prefixEdit = Entry(self, width=10)
         self.prefixEdit.grid(row=2, column=1)
@@ -62,18 +62,20 @@ class batchRenamer(Frame):
         print(files)
         self.originalNames = files
         self.newNames = files
-        self.oldEdit.insert(INSERT, files)
+        for i in range(len(files)):
+            self.oldEdit.insert(INSERT, os.path.basename(files[i]))
+            self.oldEdit.insert(INSERT, "\n")
         self.processNames()
 
     def processNames(self):
         self.newNames = self.originalNames
         self.dirName = os.path.dirname(self.originalNames[0])
 
-        if self.prefixOn == 1:
+        if self.prefixOn.get() == True:
             print("prefix")
             self.newNames = [self.prefixEdit.get() + os.path.basename(x) for x in self.newNames]
 
-        if self.suffixOn == True:
+        if self.suffixOn.get() == True:
             print("suffix")
             self.newNames = [os.path.splitext(x)[0] + self.suffixEdit.get() + os.path.splitext(x)[1] for x in self.newNames ]
         
@@ -84,6 +86,11 @@ class batchRenamer(Frame):
         if self.replaceOn == True:
             print("replace")
             self.newNames = [os.path.basename(x).replace(self.replaceOldEdit.get(), self.replaceNewEdit.get()) for x in self.originalNames]
+
+        for i in range(len(self.newNames)):
+            short = os.path.basename(self.newNames[i])
+            self.newEdit.insert(INSERT, os.path.basename(short[i]))
+            self.newEdit.insert(INSERT, "\n")
 
     def confirm(self):
         messagebox.askyesno('Confirm file rename', 'Rename files ?')
