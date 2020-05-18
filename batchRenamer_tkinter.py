@@ -24,13 +24,13 @@ class batchRenamer(Frame):
         self.prefixEdit.grid(row=2, column=1)
 
         self.suffixOn = IntVar()
-        self.suffixChkbox = Checkbutton(self, text="suffix", variable=self.suffixOn)
+        self.suffixChkbox = Checkbutton(self, text="suffix", variable=self.suffixOn, command=self.processNames)
         self.suffixChkbox.grid(row=3, column=0) 
         self.suffixEdit = Entry(self, width=10)
         self.suffixEdit.grid(row=3, column=1)
 
         self.numberingOn = IntVar()
-        self.numberingChkbox = Checkbutton(self, text="numbering", variable=self.numberingOn)
+        self.numberingChkbox = Checkbutton(self, text="numbering", variable=self.numberingOn, command=self.processNames)
         self.numberingChkbox.grid(row=4, column=0) 
         self.numberingStartEdit = Entry(self, width=5)
         self.numberingStartEdit.grid(row=4, column=1)
@@ -38,7 +38,7 @@ class batchRenamer(Frame):
         self.numberingStepEdit.grid(row=4, column=2)
 
         self.replaceOn = IntVar()
-        self.replaceChkbox = Checkbutton(self, text="replace", variable=self.replaceOn)
+        self.replaceChkbox = Checkbutton(self, text="replace", variable=self.replaceOn, command=self.processNames)
         self.replaceChkbox.grid(row=5, column=0) 
         self.replaceOldEdit = Entry(self)
         self.replaceOldEdit.grid(row=5, column=1)
@@ -81,11 +81,11 @@ class batchRenamer(Frame):
             print("suffix")
             self.newNames = [os.path.splitext(x)[0] + self.suffixEdit.get() + os.path.splitext(x)[1] for x in self.newNames ]
         
-        if self.numberingOn == True:
+        if self.numberingOn.get() == True:
             print("numbering")
             self.newNames = [os.path.splitext(os.path.basename(self.newNames[i]))[0] + str(i + int(self.numberingStartEdit.get())) * int(self.numberingStepEdit.get()) + os.path.splitext(os.path.basename(self.newNames[i]))[1] for (i, j) in enumerate(self.originalNames)]
         
-        if self.replaceOn == True:
+        if self.replaceOn.get() == True:
             print("replace")
             self.newNames = [os.path.basename(x).replace(self.replaceOldEdit.get(), self.replaceNewEdit.get()) for x in self.originalNames]
 
