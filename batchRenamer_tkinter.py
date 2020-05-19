@@ -79,20 +79,20 @@ class batchRenamer(Frame):
         self.newEdit.delete(1.0, END)
         
         if self.prefixOn.get() == True:
-            print("prefix")
+            # print("prefix")
             self.newNames = [self.prefixEdit.get() + os.path.basename(x) for x in self.newNames]
-            print(self.newNames)
+            # print(self.newNames)
 
         if self.suffixOn.get() == True:
-            print("suffix")
+            # print("suffix")
             self.newNames = [os.path.splitext(x)[0] + self.suffixEdit.get() + os.path.splitext(x)[1] for x in self.newNames ]
         
         if self.numberingOn.get() == True:
-            print("numbering")
+            # print("numbering")
             self.newNames = [os.path.splitext(os.path.basename(self.newNames[i]))[0] + str(i + int(self.numberingStartEdit.get())) * int(self.numberingStepEdit.get()) + os.path.splitext(os.path.basename(self.newNames[i]))[1] for (i, j) in enumerate(self.originalNames)]
         
         if self.replaceOn.get() == True:
-            print("replace")
+            # print("replace")
             self.newNames = [os.path.basename(x).replace(self.replaceOldEdit.get(), self.replaceNewEdit.get()) for x in self.originalNames]
 
         for i in range(len(self.newNames)):
@@ -107,11 +107,11 @@ class batchRenamer(Frame):
             self.renameFiles()
     
     def renameFiles(self):
-        print("renaming files!")
+        # print("renaming files!")
         for i in range(len(self.newNames)):
             cmd = 'mv ' + self.originalNames[i] + " " + self.dirName + "/" + self.newNames[i]
-            print(cmd)
-            # os.system(cmd)
+            # print(cmd)
+            os.system(cmd)
 
 
 root = Tk()
