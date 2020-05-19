@@ -102,19 +102,22 @@ class batchRenamer(Frame):
             self.newEdit.insert(INSERT, "\n")
 
     def confirm(self):
-        messagebox.askyesno('Confirm file rename', 'Rename files ?')
+        result = messagebox.askyesno('Confirm file rename', 'Rename files ?')
+        if result == True:
+            self.renameFiles()
     
     def renameFiles(self):
         print("renaming files!")
         for i in range(len(self.newNames)):
             cmd = 'mv ' + self.originalNames[i] + " " + self.dirName + "/" + self.newNames[i]
-            # print(cmd)
-            os.system(cmd)
+            print(cmd)
+            # os.system(cmd)
 
 
 root = Tk()
 root.title('Batch Renamer')
-root.geometry("620x530")
+root.geometry("410x510")
+root.resizable(0, 0)
 
 app = batchRenamer(root)
 
